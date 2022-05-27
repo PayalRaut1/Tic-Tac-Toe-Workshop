@@ -7,6 +7,7 @@ public class TicTacToe1
 {
     public static void main(String[] args)
     {
+
         char[] board = createBoard();
         char UserLetter = chooseLetter();
         char ComputerLetter;
@@ -21,6 +22,28 @@ public class TicTacToe1
         }
         System.out.println("Computer Letter is: " + ComputerLetter+" User Letter is : " + UserLetter);
         showBoard(board);
+        int userMove = getUserMove(board);
+        showBoard(board);
+    }
+    public static int getUserMove(char[] board)
+    {
+        Scanner sc = new Scanner(System.in);
+        Integer[] validCells = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+
+        while (true)
+        {
+            System.out.println("What is your next move ? (1-9");
+            int index = sc.nextInt();
+            if (Arrays.asList(validCells).contains(index) && isSpaceFree(board, index))
+                return index;
+
+        }
+
+    }
+    private static boolean isSpaceFree(char[] board, int index)
+    {
+        return board[index] == ' ';
     }
     public static char chooseLetter()
     {
