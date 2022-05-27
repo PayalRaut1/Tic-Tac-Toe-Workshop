@@ -3,11 +3,12 @@ package com.bridgelabz;
 import java.util.Arrays;
 import java.util.*;
 import java.util.Scanner;
+import java.util.Random;
 public class TicTacToe1
 {
     public static void main(String[] args)
     {
-
+        System.out.println("--------------------Welcome To TicTocToe Game-------------------------");
         char[] board = createBoard();
         char UserLetter = chooseLetter();
         char ComputerLetter;
@@ -21,31 +22,52 @@ public class TicTacToe1
 
         }
         System.out.println("Computer Letter is: " + ComputerLetter+" User Letter is : " + UserLetter);
+        System.out.println("Current Board:");
         showBoard(board);
-        getUserMove(board,UserLetter);
+        int first=toss();
+        if(first==1)
+        {
+            getUserMove(board,UserLetter);
+        }
+        else
+        {
+            getUserMove(board,ComputerLetter);
+        }
+        System.out.println("Current Board:");
         showBoard(board);
+    }
+    public static int toss()
+    {
 
+        Random random=new Random();
+        int value = 1+random.nextInt(2-1+1);
+        if(value==1)
+        {
+            System.out.println("User will play first");
+            return value;
+        }
+        else
+        {
+            System.out.println("Computer will play first ");
+            return value;
+        }
     }
     public static void getUserMove(char[] board,char symbol)
     {
         Scanner sc = new Scanner(System.in);
         Integer[] validCells = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-        Boolean ocupied=false;
-        while (ocupied==false)
+        boolean occupied=false;
+        while (occupied==false)
         {
-            System.out.println("What is your next move ? (1-9");
+            System.out.println("What is your next move ? (1-9)");
             int index = sc.nextInt();
             if (Arrays.asList(validCells).contains(index) && isSpaceFree(board, index))
             {
                 board[index] = symbol;
-                ocupied=true;
-            }
-            else
-            {
-                System.out.println("not between 1-9 or space is not free. Again enter between 1-9");
+                occupied=true;
             }
         }
+
     }
     private static boolean isSpaceFree(char[] board, int index)
     {
